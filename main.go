@@ -42,8 +42,15 @@ func main() {
 			  Text := update.Message.Text // Текст сообщения
         Photo := update.Message.Photo //фотки
 			  log.Printf("[%s] %d %s", UserName, ChatID, Text)
+        reply := Text
+        // чекаю фотки или нет
+        if update.Message.Caption == "" {
+          reply = Text + "\n \n" + "Автор поста: @" + UserName
+        } else {
+          reply = update.Message.Caption + "\n \n" + "Автор поста: @" + UserName
+        }
 			  // Ответим пользователю его же отредаченным сообщением
-			  reply := Text + "\n \n" + "Автор поста: @" + UserName
+
 			  // Созадаем сообщение
 			  msg := tgbotapi.NewMessage(-1001196308797, reply)
 			  bot.Send(msg) // и отправляем его
