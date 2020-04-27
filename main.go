@@ -37,23 +37,18 @@ func main() {
       //проверяем, от канала или от пользователя
       if update.ChannelPost == nil {
         fmt.Println(update)
-        // Пользователь, который написал боту
-        UserName := update.Message.From.UserName
-        // ID чата/диалога.
-        // Может быть идентификатором как чата с пользователем
-        // (тогда он равен UserID) так и публичного чата/канала
-			  ChatID := update.Message.Chat.ID
-			  // Текст сообщения
-			  Text := update.Message.Text
+        UserName := update.Message.From.UserName   // Пользователь, который написал боту
+			  ChatID := update.Message.Chat.ID   // ID чата/диалога.
+			  Text := update.Message.Text // Текст сообщения
 			  log.Printf("[%s] %d %s", UserName, ChatID, Text)
 			  // Ответим пользователю его же отредаченным сообщением
 			  reply := Text + "\n \n" + "Автор поста: @" + UserName
 			  // Созадаем сообщение
-			  msg := tgbotapi.NewMessage(ChatID, reply)
+			  msg := tgbotapi.NewMessage(-1001196308797, reply)
 			  // и отправляем его
         //time.Sleep(time.Millisecond * 5000000)
 			  bot.Send(msg)
     }
 		}
 	}
-} 
+}
