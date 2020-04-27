@@ -21,7 +21,7 @@ func main() {
 		log.Panic(err)
 	}
 
-  bot.Debug = false
+  bot.Debug = true
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
 	// инициализируем канал, куда будут прилетать обновления от API
@@ -40,14 +40,13 @@ func main() {
         UserName := update.Message.From.UserName   // Пользователь, который написал боту
 			  ChatID := update.Message.Chat.ID   // ID чата/диалога.
 			  Text := update.Message.Text // Текст сообщения
+        Photo := update.Message.Photo //фотки
 			  log.Printf("[%s] %d %s", UserName, ChatID, Text)
 			  // Ответим пользователю его же отредаченным сообщением
 			  reply := Text + "\n \n" + "Автор поста: @" + UserName
 			  // Созадаем сообщение
 			  msg := tgbotapi.NewMessage(-1001196308797, reply)
-			  // и отправляем его
-        //time.Sleep(time.Millisecond * 5000000)
-			  bot.Send(msg)
+			  bot.Send(msg) // и отправляем его
     }
 		}
 	}
