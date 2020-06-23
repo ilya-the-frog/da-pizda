@@ -59,7 +59,10 @@ func main() {
 				if reply != "" {
 					msg := tgbotapi.NewMessage(update.Message.Chat.ID, reply)
 					msg.BaseChat.ReplyToMessageID = update.Message.MessageID //добавляем реплай
-					bot.Send(msg)                                            // и отправляем его
+
+					if _, err := bot.Send(msg); err != nil {
+						panic(err)
+					}
 				}
 			}
 		}
