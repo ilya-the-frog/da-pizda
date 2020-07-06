@@ -35,13 +35,7 @@ func main() {
 		select {
 		case update := <-upd:
 			//проверяем, от канала или от пользователя
-			if update.ChannelPost == nil {
-				//fmt.Println(update)
-				UserName := update.Message.From.UserName // Пользователь, который написал боту
-				ChatID := update.Message.Chat.ID         // ID чата/диалога.
-				Text := update.Message.Text              // Текст сообщения
-				// Photo := update.Message.Photo            //фотки
-				log.Printf("[%s] %d %s", UserName, ChatID, Text)
+			if update.ChannelPost == nil && update.EditedMessage == nil {
 				var reply = "" // чекаю текст
 
 				if update.Message.Text == "да" || update.Message.Text == "Да" {
@@ -56,10 +50,18 @@ func main() {
 					reply = "пидора ответ"
 				}
 
+				if update.Message.Text == "здрасьте" || update.Message.Text == "Здрасьте" {
+					reply = "забор покрасьте"
+				}
+
+				if update.Message.Text == "пидора ответ" {
+					reply = "сам пидора ответ"
+				}
+
 				if reply != "" {
 					msg := tgbotapi.NewMessage(update.Message.Chat.ID, reply)
 					msg.BaseChat.ReplyToMessageID = update.Message.MessageID //добавляем реплай
-
+					log.Printf("Send %s", reply)
 					if _, err := bot.Send(msg); err != nil {
 						panic(err)
 					}
