@@ -38,7 +38,7 @@ func main() {
 			if update.ChannelPost == nil && update.EditedMessage == nil {
 				var reply = "" // чекаю текст
 
-				if update.Message.Text == "да" || update.Message.Text == "Да" {
+				if update.Message.Text == "да" || update.Message.Text == "Да" || update.Message.Text == "da" || update.Message.Text == "Da" || update.Message.Text == "lf" {
 					reply = "пизда"
 				}
 
@@ -46,7 +46,7 @@ func main() {
 					reply = "да"
 				}
 
-				if update.Message.Text == "нет" || update.Message.Text == "Нет" {
+				if update.Message.Text == "нет" || update.Message.Text == "Нет" || update.Message.Text == "net" || update.Message.Text == "Net" ||  update.Message.Text == "ytn" {
 					reply = "пидора ответ"
 				}
 
