@@ -46,7 +46,7 @@ func main() {
 					reply = "да"
 				}
 
-				if update.Message.Text == "нет" || update.Message.Text == "Нет" || update.Message.Text == "net" || update.Message.Text == "Net" ||  update.Message.Text == "ytn" {
+				if update.Message.Text == "нет" || update.Message.Text == "Нет" || update.Message.Text == "net" || update.Message.Text == "Net" || update.Message.Text == "ytn" {
 					reply = "пидора ответ"
 				}
 
@@ -56,6 +56,10 @@ func main() {
 
 				if update.Message.Text == "пидора ответ" {
 					reply = "сам пидора ответ"
+				}
+
+				if update.Message.Text == "300" || update.Message.Text == "триста" {
+					reply = "отсоси у тракториста"
 				}
 
 				if reply != "" {
