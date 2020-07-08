@@ -4,6 +4,7 @@ import (
 	"github.com/go-telegram-bot-api/telegram-bot-api"
 	"io/ioutil"
 	"log"
+	"strings"
 	"time"
 )
 
@@ -38,19 +39,21 @@ func main() {
 			if update.ChannelPost == nil && update.EditedMessage == nil {
 				var reply = "" // чекаю текст
 
-				if update.Message.Text == "да" || update.Message.Text == "Да" || update.Message.Text == "da" || update.Message.Text == "Da" || update.Message.Text == "lf" {
+				update.Message.Text = strings.ToLower(update.Message.Text)
+
+				if update.Message.Text == "да" || update.Message.Text == "da" || update.Message.Text == "lf" {
 					reply = "пизда"
 				}
 
-				if update.Message.Text == "пизда" || update.Message.Text == "Пизда" {
+				if update.Message.Text == "пизда" || update.Message.Text == "pizda" || update.Message.Text == "gbplf" {
 					reply = "да"
 				}
 
-				if update.Message.Text == "нет" || update.Message.Text == "Нет" || update.Message.Text == "net" || update.Message.Text == "Net" || update.Message.Text == "ytn" {
+				if update.Message.Text == "нет" || update.Message.Text == "net" || update.Message.Text == "ytn" {
 					reply = "пидора ответ"
 				}
 
-				if update.Message.Text == "здрасьте" || update.Message.Text == "Здрасьте" {
+				if update.Message.Text == "здрасьте" {
 					reply = "забор покрасьте"
 				}
 
