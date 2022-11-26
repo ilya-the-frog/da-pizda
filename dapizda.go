@@ -8,6 +8,20 @@ import (
 	"time"
 )
 
+var answers = map[string]string{
+	"да":       "пизда",
+	"da":       "пизда",
+	"lf":       "пизда",
+	"пизда":    "да",
+	"pizda":    "да",
+	"gbplf":    "да",
+	"нет":      "пидора ответ",
+	"net":      "пидора ответ",
+	"ytn":      "пидора ответ",
+	"здрасьте": "забор покрасьте",
+	"300":      "отсоси у тракториста",
+	"триста":   "отсоси у тракториста"}
+
 func main() {
 	//достанем токен из файла
 	token, err := ioutil.ReadFile("token.txt")
@@ -37,35 +51,7 @@ func main() {
 		case update := <-upd:
 			//проверяем, от канала или от пользователя
 			if update.ChannelPost == nil && update.EditedMessage == nil {
-				var reply = "" // чекаю текст
-
-				update.Message.Text = strings.ToLower(update.Message.Text)
-
-				if update.Message.Text == "да" || update.Message.Text == "da" || update.Message.Text == "lf" {
-					reply = "пизда"
-				}
-
-				if update.Message.Text == "пизда" || update.Message.Text == "pizda" || update.Message.Text == "gbplf" {
-					reply = "да"
-				}
-
-				if update.Message.Text == "нет" || update.Message.Text == "net" || update.Message.Text == "ytn" {
-					reply = "пидора ответ"
-				}
-
-				if update.Message.Text == "здрасьте" {
-					reply = "забор покрасьте"
-				}
-
-				if update.Message.Text == "пидора ответ" {
-					reply = "сам пидора ответ"
-				}
-
-				if update.Message.Text == "300" || update.Message.Text == "триста" {
-					reply = "отсоси у тракториста"
-				}
-
-				if reply != "" {
+				if reply := answers[strings.ToLower(update.Message.Text)]; reply != "" {
 					msg := tgbotapi.NewMessage(update.Message.Chat.ID, reply)
 					msg.BaseChat.ReplyToMessageID = update.Message.MessageID //добавляем реплай
 					log.Printf("Send %s", reply)
