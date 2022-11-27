@@ -12,7 +12,5 @@ jobs:
           BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
           echo branch name ${BRANCH_NAME}
           echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-      - name: Build
-        run: docker-compose -f docker-compose.yaml --project-name $REPOSITORY_NAME build
-      - name: Deploy
-        run: docker-compose -f docker-compose.yaml --project-name $REPOSITORY_NAME up -d
+      - name: Buiild and Deploy
+        run: docker compose -f docker-compose.yaml --project-name $REPOSITORY_NAME up --build -d
