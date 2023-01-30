@@ -33,7 +33,7 @@ func main() {
 	// подключаемся к боту с помощью токена
 	bot, err := tgbotapi.NewBotAPI(string(token))
 	if err != nil {
-		log.Panic(err)
+		log.Fatalf("Error connecting to the bot: %v", err)
 	}
 
 	bot.Debug = false
@@ -42,7 +42,10 @@ func main() {
 	// инициализируем канал, куда будут прилетать обновления от API
 	var ucfg tgbotapi.UpdateConfig = tgbotapi.NewUpdate(0)
 	ucfg.Timeout = 60
-	upd, _ := bot.GetUpdatesChan(ucfg)
+	upd, err := bot.GetUpdatesChan(ucfg)
+	if err != nil {
+		log.Fatalf("Error getting updates channel: %v", err)
+	}
 	time.Sleep(time.Millisecond * 500)
 	upd.Clear()
 	// читаем обновления из канала
@@ -54,9 +57,10 @@ func main() {
 				if reply := answers[strings.ToLower(update.Message.Text)]; reply != "" {
 					msg := tgbotapi.NewMessage(update.Message.Chat.ID, reply)
 					msg.BaseChat.ReplyToMessageID = update.Message.MessageID //добавляем реплай
-					log.Printf("Send %s", reply)
-					if _, err := bot.Send(msg); err != nil {
-						panic(err)
+					log.Printf("Sending %s", reply)
+					_, err := bot.Send(msg)
+					if err != nil {
+						log.Fatalf("Error sending message: %v", err)
 					}
 				}
 			}
