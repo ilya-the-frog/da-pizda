@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/go-telegram-bot-api/telegram-bot-api"
 	"io/ioutil"
 	"log"
 	"strings"
@@ -20,7 +19,9 @@ var answers = map[string]string{
 	"ytn":      "пидора ответ",
 	"здрасьте": "забор покрасьте",
 	"300":      "отсоси у тракториста",
-	"триста":   "отсоси у тракториста"}
+	"триста":   "отсоси у тракториста",
+	"точно":    "соси сочно",
+}
 
 func main() {
 	//достанем токен из файла
