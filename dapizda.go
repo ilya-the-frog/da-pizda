@@ -9,18 +9,37 @@ import (
 )
 
 var answers = map[string]string{
-	"да":       "пизда",
-	"da":       "пизда",
-	"lf":       "пизда",
-	"пизда":    "да",
-	"pizda":    "да",
-	"gbplf":    "да",
-	"нет":      "пидора ответ",
-	"net":      "пидора ответ",
-	"ytn":      "пидора ответ",
-	"здрасьте": "забор покрасьте",
-	"300":      "отсоси у тракториста",
-	"триста":   "отсоси у тракториста"}
+    `(?i)(?:^|[^\wа-я])да+[^\wа-я]*$`:          "пизда",
+    `(?i)(?:^|[^\wа-я])da+[^\wа-я]*$`:          "пизда",
+    `(?i)(?:^|[^\wа-я])lf+[^\wа-я]*$`:          "пизда",
+    `(?i)(?:^|[^\wа-я])пи+зда+[^\wа-я]*$`:      "да",
+    `(?i)(?:^|[^\wа-я])pi+zda+[^\wа-я]*$`:      "да",
+    `(?i)(?:^|[^\wа-я])gb+plf+[^\wа-я]*$`:      "да",
+    `(?i)(?:^|[^\wа-я])не+т+[^\wа-я]*$`:        "пидора ответ",
+    `(?i)(?:^|[^\wа-я])ne+t+[^\wа-я]*$`:        "пидора ответ",
+    `(?i)(?:^|[^\wа-я])yt+n+[^\wа-я]*$`:        "пидора ответ",
+    `(?i)(?:^|[^\wа-я])здра+сьте+[^\wа-я]*$`:   "забор покрасьте",
+    `(?:^|[^\wа-я])300[^\wа-я]*$`:              "отсоси у тракториста",
+    `(?i)(?:^|[^\wа-я])три+ста+[^\wа-я]*$`:     "отсоси у тракториста"}
+
+var compiledAnswers map[*regexp.Regexp]string
+
+func init() {
+	compiledAnswers = make(map[*regexp.Regexp]string)
+	for pattern, reply := range answers {
+		re := regexp.MustCompile(pattern)
+		compiledAnswers[re] = reply
+	}
+}
+
+func checkInput(input string) string {
+	for re, reply := range compiledAnswers {
+		if re.MatchString(input) {
+			return reply
+		}
+	}
+	return ""
+}
 
 func main() {
 	//достанем токен из файла
@@ -54,7 +73,7 @@ func main() {
 		case update := <-upd:
 			//проверяем, от канала или от пользователя
 			if update.ChannelPost == nil && update.EditedMessage == nil {
-				if reply := answers[strings.ToLower(update.Message.Text)]; reply != "" {
+                if reply := checkInput(update.Message.Text); reply != "" {
 					msg := tgbotapi.NewMessage(update.Message.Chat.ID, reply)
 					msg.BaseChat.ReplyToMessageID = update.Message.MessageID //добавляем реплай
 					log.Printf("Sending %s", reply)
