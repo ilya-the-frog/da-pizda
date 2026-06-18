@@ -1,32 +1,21 @@
 # Да? Пизда!
 
-Telegram bot на aiogram.
+Telegram-бот, который отвечает «пизда» на «да» и не только.
+
+Добавить в группу: @pizdabalabol_bot
 
 Подписывайтесь на канал автора бота: https://t.me/travelasproduct
 
-## Оживление бота
+Бота оживили ребята из [loomp.io](https://loomp.io) — пишите
+[@loompio](https://t.me/loompio), если у вас есть проект, которому нужен
+реалистичный бот с персоналией.
 
-Спасибо ребятам, которые вернули бота к жизни: зачистили старую реализацию,
-перенесли поведение на aiogram, добавили Docker Compose, Taskfile и тесты.
+## Разработка
 
-## Локальный запуск
-
-1. Скопируйте `.env.example` в `.env`.
-2. Укажите токен Telegram-бота в `BOT_TOKEN`.
-3. Запустите:
+Скопируйте `.env.example` в `.env`, укажите `BOT_TOKEN` и запускайте:
 
 ```bash
 task run
-```
-
-## Проверки
-
-```bash
 task test
 task lint
 ```
-
-## Расширение
-
-Новые aiogram-роутеры добавляются в `src/dapizda_bot/handlers/` и подключаются в
-`src/dapizda_bot/handlers/__init__.py`.
