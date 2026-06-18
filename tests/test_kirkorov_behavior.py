@@ -11,21 +11,31 @@ from dapizda_bot.behavior.kirkorov import find_reply
         ("ДА!!!", "пизда"),
         ("дааа", "пизда"),
         ("пизда?", "да"),
+        ("пииздаа?", "да"),
         ("нет", "пидора ответ"),
+        ("нееетт", "пидора ответ"),
         ("здрасьте.", "забор покрасьте"),
+        ("здрааасьтее.", "забор покрасьте"),
         ("300", "отсоси у тракториста"),
         ("триста", "отсоси у тракториста"),
+        ("триистааа", "отсоси у тракториста"),
         ("точно", "соси сочно"),
         ("шлюхи аргумент", "Аргумент не нужен, пидор обнаружен"),
         ("а", "хуй на"),
         ("где", "в пизде"),
         ("da", "pizda"),
+        ("daa", "pizda"),
         ("pizda", "da"),
+        ("piiizdaaa", "da"),
         ("net", "pidora otvet"),
+        ("neettt", "pidora otvet"),
         ("gde", "v pizde"),
         ("lf", "gbplf"),
+        ("lff", "gbplf"),
         ("gbplf", "lf"),
+        ("gbbplff", "lf"),
         ("ytn", "gbljhf jndtn"),
+        ("yttnn", "gbljhf jndtn"),
         ("ult", "d gbplt"),
     ],
 )
@@ -52,4 +62,3 @@ def test_find_reply_uses_random_reply_for_sosal() -> None:
 )
 def test_find_reply_ignores_non_matching_text(text: str) -> None:
     assert find_reply(text) is None
-
