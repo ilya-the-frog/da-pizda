@@ -18,3 +18,8 @@ task run
 task test
 task lint
 ```
+
+## Расширение
+
+Новые aiogram-роутеры добавляются в `src/dapizda_bot/handlers/` и подключаются в
+`src/dapizda_bot/handlers/__init__.py`.
