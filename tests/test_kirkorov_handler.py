@@ -1,5 +1,6 @@
 import asyncio
 import importlib
+import logging
 from dataclasses import dataclass
 
 import pytest
@@ -42,8 +43,12 @@ def test_enable_ai_is_reply_only_stub() -> None:
     assert message.replies == ["AI включён для этого чата."]
 
 
-def test_pattern_response_replies_and_registers_noop(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_pattern_response_replies_and_registers_noop(
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
     message = FakeMessage()
+    caplog.set_level(logging.INFO, logger=kirkorov.__name__)
 
     async def no_sleep(_seconds: float) -> None:
         return None
@@ -53,3 +58,4 @@ def test_pattern_response_replies_and_registers_noop(monkeypatch: pytest.MonkeyP
     asyncio.run(kirkorov.pattern_response(message, "пизда"))
 
     assert message.replies == ["пизда"]
+    assert "Sending pattern reply" in caplog.text
