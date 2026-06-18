@@ -22,13 +22,15 @@ PatternReply = str | tuple[str, ...]
 
 RESPONSE_PATTERNS: tuple[tuple[re.Pattern[str], PatternReply], ...] = (
     # Cyrillic
-    (re.compile(r"\bда+$", re.IGNORECASE), "пизда"),
+    (re.compile(r"\bд\s*[аa]+$", re.IGNORECASE), "пизда"),
     (re.compile(r"\bпи+зда+$", re.IGNORECASE), "да"),
-    (re.compile(r"\bне+т+$", re.IGNORECASE), "пидора ответ"),
+    (re.compile(r"\bн[еe]+т+$", re.IGNORECASE), "пидора ответ"),
     (re.compile(r"\bздра+сьте+$", re.IGNORECASE), "забор покрасьте"),
     (re.compile(r"\b300$"), "отсоси у тракториста"),
     (re.compile(r"\bтри+ста+$", re.IGNORECASE), "отсоси у тракториста"),
     (re.compile(r"\bточно$", re.IGNORECASE), "соси сочно"),
+    (re.compile(r"\bпривет$", re.IGNORECASE), "минет"),
+    (re.compile(r"\bутро$", re.IGNORECASE), "хуютро"),
     (re.compile(r"\bшлюхи аргумент$", re.IGNORECASE), "Аргумент не нужен, пидор обнаружен"),
     (re.compile(r"\bа$", re.IGNORECASE), "хуй на"),
     (re.compile(r"\bгде$", re.IGNORECASE), "в пизде"),
