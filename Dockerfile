@@ -1,17 +1,16 @@
-# Use the official Go image as the base image
-FROM golang:1.15
+FROM python:3.12-slim
 
-# Set the working directory in the container
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Copy the application files into the working directory
-COPY . /app
+COPY pyproject.toml README.md ./
+COPY src ./src
+COPY tests ./tests
 
-# Build the application
-RUN go build -o main .
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir ".[dev]"
 
-# Expose port 8080
-EXPOSE 8080
+CMD ["python", "-m", "dapizda_bot"]
 
-# Define the entry point for the container
-CMD ["./main"]

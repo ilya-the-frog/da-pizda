@@ -1,7 +1,25 @@
 # Да? Пизда!
-Telegram bot из 69 строк, который отвечает «пизда» на сообщение «да» и не только
-Добавить в группу: @pizdabalabol_bot
 
-Подписывайтесь на канал автора бота: https://t.me/travelasproduct
+Telegram bot на aiogram.
 
-Если бот вам понравился, поставьте Star репозиторию и подписывайтесь на мой LinkedIn: https://www.linkedin.com/in/ilyathefrog/
+## Локальный запуск
+
+1. Скопируйте `.env.example` в `.env`.
+2. Укажите токен Telegram-бота в `BOT_TOKEN`.
+3. Запустите:
+
+```bash
+task run
+```
+
+## Проверки
+
+```bash
+task test
+task lint
+```
+
+## Расширение
+
+Новые aiogram-роутеры добавляются в `src/dapizda_bot/handlers/` и подключаются в
+`src/dapizda_bot/handlers/__init__.py`.
