@@ -1,0 +1,31 @@
+version: "3"
+
+vars:
+  RUN_ENV_FILE: '{{.ENV_FILE | default ".env"}}'
+  TEST_ENV_FILE: '{{.TEST_ENV_FILE | default ".env.example"}}'
+
+tasks:
+  run:
+    desc: Run the bot with Docker Compose and .env
+    env:
+      ENV_FILE: "{{.RUN_ENV_FILE}}"
+    preconditions:
+      - sh: test -f {{.RUN_ENV_FILE}}
+        msg: "Create {{.RUN_ENV_FILE}} from .env.example and set BOT_TOKEN."
+    cmds:
+      - docker compose --env-file {{.RUN_ENV_FILE}} up --build
+
+  test:
+    desc: Run pytest in Docker Compose
+    env:
+      ENV_FILE: "{{.TEST_ENV_FILE}}"
+    cmds:
+      - docker compose --env-file {{.TEST_ENV_FILE}} run --rm bot pytest
+
+  lint:
+    desc: Run ruff in Docker Compose
+    env:
+      ENV_FILE: "{{.TEST_ENV_FILE}}"
+    cmds:
+      - docker compose --env-file {{.TEST_ENV_FILE}} run --rm bot ruff check .
+

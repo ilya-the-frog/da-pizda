@@ -4,13 +4,11 @@ jobs:
   build-and-deploy:
     runs-on: [self-hosted]
     steps:
-      - uses: actions/checkout@v3
-        # На сервере должен быть ключ к репозиторию протобуфов.
-        # Чекаут не умеет в сабмодули приватные
+      - uses: actions/checkout@v4
       - name: Setup env
         run: |
           BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
           echo branch name ${BRANCH_NAME}
           echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-      - name: Buiild and Deploy
-        run: docker compose -f docker-compose.yaml --project-name $REPOSITORY_NAME up --build -d
+      - name: Build and deploy
+        run: docker compose --env-file .env -f docker-compose.yaml --project-name $REPOSITORY_NAME up --build -d
