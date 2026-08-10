@@ -53,7 +53,7 @@ RESPONSE_PATTERNS: tuple[tuple[re.Pattern[str], PatternReply], ...] = (
     (re.compile(r"\bхорошо$", re.IGNORECASE), "нихуя хорошего"),
     (re.compile(r"\bмолодец$", re.IGNORECASE), "хумбимбец"),
     (re.compile(r"\bзачем$", re.IGNORECASE), "затем бять"),
-    (re.compile(r"\bрыба$", re.IGNORECASE), "хуиб"),
+    (re.compile(r"\bрыба$", re.IGNORECASE), "хуиба"),
     (re.compile(r"\bбыба$", re.IGNORECASE), "хуыба"),
     (re.compile(r"\bщука$", re.IGNORECASE), "хуюка"),
     (re.compile(r"\bкаво$", re.IGNORECASE), "таво"),
